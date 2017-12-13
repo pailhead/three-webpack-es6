@@ -35,6 +35,7 @@ There is a script in `package.json` called `build`. It will run webpack with `pr
 - hot updating GLSL would be great
 - instructions on how to setup sublime to lint the files
 - some example three.js code
+- use only needed three components rather than the whole library
 - more
 
 
