@@ -31,6 +31,10 @@ There is a script in `package.json` called `build`. It will run webpack with `pr
 
 ## TODO
 
-stuff
+- don't like what HTMLWebpackPlugin does with lodash, needs investigation
+- hot updating GLSL would be great
+- instructions on how to setup sublime to lint the files
+- some example three.js code
+- more
 
 
