@@ -16,7 +16,7 @@ First stab at a lean-ish *"let's write three.js code like it's 2017"* boilerplat
 ## Install
 
 Clone the repo:
-`git clone https://github.com/paulmg/ThreeJS-Webpack-ES6-Boilerplate.git`
+`git clone https://github.com/pailhead/three-webpack-es6.git`
 Run: 
 `npm install` or `yarn`
 
