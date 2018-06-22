@@ -27,6 +27,9 @@ if (__DEV__) {
             filename: '[name].bundle.js',
             publicPath: '/'
         },
+        // externals: {
+        //     THREE: 'three'
+        // },
         module: {
             rules: [
                 {
@@ -92,6 +95,9 @@ if (__DEV__) {
             new HtmlWebpackPlugin({
                 template: path.resolve(__dirname, 'src/index.html')
             }),
+            new webpack.ProvidePlugin({
+                THREE: 'three'
+            }),
             new webpack.optimize.OccurrenceOrderPlugin(),
             new webpack.HotModuleReplacementPlugin(),
             new webpack.NoEmitOnErrorsPlugin(),
@@ -119,6 +125,9 @@ if (__PROD__) {
             path: path.join(__dirname, 'build'),
             filename: '[name].bundle.js',
             publicPath: '/'
+        },
+        externals: {
+            THREE: 'three'
         },
         module: {
             rules: [
