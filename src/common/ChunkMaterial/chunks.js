@@ -88,6 +88,8 @@ import uv2_pars_vertex from './Chunks/uv2_pars_vertex.glsl'
 import uv2_vertex from './Chunks/uv2_vertex.glsl'
 import worldpos_vertex from './Chunks/worldpos_vertex.glsl'
 
+//TODO: hook these up later
+
 // import cube_frag from './ShaderLib/cube_frag.glsl'
 // import cube_vert from './ShaderLib/cube_vert.glsl'
 // import depth_frag from './ShaderLib/depth_frag.glsl'
@@ -112,6 +114,11 @@ import worldpos_vertex from './Chunks/worldpos_vertex.glsl'
 // import points_vert from './ShaderLib/points_vert.glsl'
 // import shadow_frag from './ShaderLib/shadow_frag.glsl'
 // import shadow_vert from './ShaderLib/shadow_vert.glsl'
+
+//TODO: it's either this, or each material have a list of it's own require('somechunk.glsl')
+//      it leads to duplication, the template already holds all the names and a regex could extract them
+//      but then it requires a dynamic import
+
 const Chunks = {
     alphamap_fragment,
     alphamap_pars_fragment,
@@ -203,6 +210,9 @@ const Chunks = {
     uv2_vertex,
     worldpos_vertex
 }
+
+export default Chunks
+
 // export { cube_frag }
 // export { cube_vert }
 // export { depth_frag }
@@ -227,4 +237,3 @@ const Chunks = {
 // export { points_vert }
 // export { shadow_frag }
 // export { shadow_vert }
-export default Chunks
