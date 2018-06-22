@@ -72,6 +72,7 @@ import BasicMaterial from 'common/ChunkMaterial/BasicMaterial'
 import LambertMaterial from 'common/ChunkMaterial/LambertMaterial'
 import PhongMaterial from 'common/ChunkMaterial/PhongMaterial'
 import StandardMaterial from 'common/ChunkMaterial/StandardMaterial'
+import PhysicalMaterial from 'common/ChunkMaterial/StandardMaterial/PhysicalMaterial'
 
 const normalMap = new THREE.TextureLoader().load(
     require('modules/waternormals.jpg')
@@ -85,11 +86,11 @@ const mesh = new THREE.Mesh(
     sphereGeometry,
     // new BasicMaterial({
     // new LambertMaterial({
-    new StandardMaterial({
-        color: 'red',
+    new PhysicalMaterial({
+        color: 'white',
         map: displacementMap,
         normalMap,
-        metalness: 0
+        metalness: 1
         // displacementMap
     })
 )
@@ -100,11 +101,11 @@ const meshD = new THREE.Mesh(
     sphereGeometry,
     // new THREE.MeshBasicMaterial({
     // new THREE.MeshLambertMaterial({
-    new THREE.MeshStandardMaterial({
-        color: 'red',
+    new THREE.MeshPhysicalMaterial({
+        color: 'white',
         map: displacementMap,
         normalMap,
-        metalness: 0
+        metalness: 1
         // displacementMap
     })
     // new THREE.MeshNormalMaterial()

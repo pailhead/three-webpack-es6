@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { parseIncludes, initParameters } from '../utils'
+import ChunkMaterial from '../ChunkMaterial'
 import vertexShader from './template.vert'
 import fragmentShader from './template.frag'
 
@@ -21,7 +21,7 @@ import fragmentShader from './template.frag'
  * }
  */
 
-export default class NormalMaterial extends THREE.ShaderMaterial {
+export default class NormalMaterial extends ChunkMaterial {
     constructor(parameters) {
         //declare parameters for this material
         const defaultParameters = {
@@ -50,22 +50,9 @@ export default class NormalMaterial extends THREE.ShaderMaterial {
         super({
             uniforms,
             vertexShader,
-            fragmentShader
+            fragmentShader,
+            defaultParameters,
+            parameters
         })
-
-        //init parameters and wire uniforms
-        initParameters(this, defaultParameters, parameters)
-
-        //bypass three's compilation system alltogether
-        this.onBeforeCompile = shader => {
-            shader.vertexShader = parseIncludes(vertexShader, this.shaderChunks)
-            shader.fragmentShader = parseIncludes(
-                fragmentShader,
-                this.shaderChunks
-            )
-        }
-
-        //pass this stuff for serialization
-        // this.setAdditionalParameters(parameters)
     }
 }
