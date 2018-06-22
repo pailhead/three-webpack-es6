@@ -112,96 +112,97 @@ import worldpos_vertex from './Chunks/worldpos_vertex.glsl'
 // import points_vert from './ShaderLib/points_vert.glsl'
 // import shadow_frag from './ShaderLib/shadow_frag.glsl'
 // import shadow_vert from './ShaderLib/shadow_vert.glsl'
-
-export { alphamap_fragment }
-export { alphamap_pars_fragment }
-export { alphatest_fragment }
-export { aomap_fragment }
-export { aomap_pars_fragment }
-export { begin_vertex }
-export { beginnormal_vertex }
-export { bsdfs }
-export { bumpmap_pars_fragment }
-export { clipping_planes_fragment }
-export { clipping_planes_pars_fragment }
-export { clipping_planes_pars_vertex }
-export { clipping_planes_vertex }
-export { color_fragment }
-export { color_pars_fragment }
-export { color_pars_vertex }
-export { color_vertex }
-export { common }
-export { cube_uv_reflection_fragment }
-export { defaultnormal_vertex }
-export { displacementmap_pars_vertex }
-export { displacementmap_vertex }
-export { emissivemap_fragment }
-export { emissivemap_pars_fragment }
-export { encodings_fragment }
-export { encodings_pars_fragment }
-export { envmap_fragment }
-export { envmap_pars_fragment }
-export { envmap_pars_vertex }
-export { envmap_vertex }
-export { fog_vertex }
-export { fog_pars_vertex }
-export { fog_fragment }
-export { fog_pars_fragment }
-export { gradientmap_pars_fragment }
-export { lightmap_fragment }
-export { lightmap_pars_fragment }
-export { lights_lambert_vertex }
-export { lights_pars_begin }
-export { lights_pars_maps }
-export { lights_phong_fragment }
-export { lights_phong_pars_fragment }
-export { lights_physical_fragment }
-export { lights_physical_pars_fragment }
-export { lights_fragment_begin }
-export { lights_fragment_maps }
-export { lights_fragment_end }
-export { logdepthbuf_fragment }
-export { logdepthbuf_pars_fragment }
-export { logdepthbuf_pars_vertex }
-export { logdepthbuf_vertex }
-export { map_fragment }
-export { map_pars_fragment }
-export { map_particle_fragment }
-export { map_particle_pars_fragment }
-export { metalnessmap_fragment }
-export { metalnessmap_pars_fragment }
-export { morphnormal_vertex }
-export { morphtarget_pars_vertex }
-export { morphtarget_vertex }
-export { normal_fragment_begin }
-export { normal_fragment_maps }
-export { normalmap_pars_fragment }
-export { packing }
-export { premultiplied_alpha_fragment }
-export { project_vertex }
-export { dithering_fragment }
-export { dithering_pars_fragment }
-export { roughnessmap_fragment }
-export { roughnessmap_pars_fragment }
-export { shadowmap_pars_fragment }
-export { shadowmap_pars_vertex }
-export { shadowmap_vertex }
-export { shadowmask_pars_fragment }
-export { skinbase_vertex }
-export { skinning_pars_vertex }
-export { skinning_vertex }
-export { skinnormal_vertex }
-export { specularmap_fragment }
-export { specularmap_pars_fragment }
-export { tonemapping_fragment }
-export { tonemapping_pars_fragment }
-export { uv_pars_fragment }
-export { uv_pars_vertex }
-export { uv_vertex }
-export { uv2_pars_fragment }
-export { uv2_pars_vertex }
-export { uv2_vertex }
-export { worldpos_vertex }
+const Chunks = {
+    alphamap_fragment,
+    alphamap_pars_fragment,
+    alphatest_fragment,
+    aomap_fragment,
+    aomap_pars_fragment,
+    begin_vertex,
+    beginnormal_vertex,
+    bsdfs,
+    bumpmap_pars_fragment,
+    clipping_planes_fragment,
+    clipping_planes_pars_fragment,
+    clipping_planes_pars_vertex,
+    clipping_planes_vertex,
+    color_fragment,
+    color_pars_fragment,
+    color_pars_vertex,
+    color_vertex,
+    common,
+    cube_uv_reflection_fragment,
+    defaultnormal_vertex,
+    displacementmap_pars_vertex,
+    displacementmap_vertex,
+    emissivemap_fragment,
+    emissivemap_pars_fragment,
+    encodings_fragment,
+    encodings_pars_fragment,
+    envmap_fragment,
+    envmap_pars_fragment,
+    envmap_pars_vertex,
+    envmap_vertex,
+    fog_vertex,
+    fog_pars_vertex,
+    fog_fragment,
+    fog_pars_fragment,
+    gradientmap_pars_fragment,
+    lightmap_fragment,
+    lightmap_pars_fragment,
+    lights_lambert_vertex,
+    lights_pars_begin,
+    lights_pars_maps,
+    lights_phong_fragment,
+    lights_phong_pars_fragment,
+    lights_physical_fragment,
+    lights_physical_pars_fragment,
+    lights_fragment_begin,
+    lights_fragment_maps,
+    lights_fragment_end,
+    logdepthbuf_fragment,
+    logdepthbuf_pars_fragment,
+    logdepthbuf_pars_vertex,
+    logdepthbuf_vertex,
+    map_fragment,
+    map_pars_fragment,
+    map_particle_fragment,
+    map_particle_pars_fragment,
+    metalnessmap_fragment,
+    metalnessmap_pars_fragment,
+    morphnormal_vertex,
+    morphtarget_pars_vertex,
+    morphtarget_vertex,
+    normal_fragment_begin,
+    normal_fragment_maps,
+    normalmap_pars_fragment,
+    packing,
+    premultiplied_alpha_fragment,
+    project_vertex,
+    dithering_fragment,
+    dithering_pars_fragment,
+    roughnessmap_fragment,
+    roughnessmap_pars_fragment,
+    shadowmap_pars_fragment,
+    shadowmap_pars_vertex,
+    shadowmap_vertex,
+    shadowmask_pars_fragment,
+    skinbase_vertex,
+    skinning_pars_vertex,
+    skinning_vertex,
+    skinnormal_vertex,
+    specularmap_fragment,
+    specularmap_pars_fragment,
+    tonemapping_fragment,
+    tonemapping_pars_fragment,
+    uv_pars_fragment,
+    uv_pars_vertex,
+    uv_vertex,
+    uv2_pars_fragment,
+    uv2_pars_vertex,
+    uv2_vertex,
+    worldpos_vertex
+}
 // export { cube_frag }
 // export { cube_vert }
 // export { depth_frag }
@@ -226,3 +227,4 @@ export { worldpos_vertex }
 // export { points_vert }
 // export { shadow_frag }
 // export { shadow_vert }
+export default Chunks

@@ -152,8 +152,11 @@ export default class BasicMaterial extends THREE.ShaderMaterial {
 
         //bypass three's compilation system alltogether
         this.onBeforeCompile = shader => {
-            shader.vertexShader = parseIncludes(vertexShader, chunks)
-            shader.fragmentShader = parseIncludes(fragmentShader, chunks)
+            shader.vertexShader = parseIncludes(vertexShader, this.shaderChunks)
+            shader.fragmentShader = parseIncludes(
+                fragmentShader,
+                this.shaderChunks
+            )
         }
 
         //pass this stuff for serialization
