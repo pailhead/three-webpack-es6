@@ -188,7 +188,7 @@ for (let i = 0; i < SIZE; i++) {
     }
 }
 
-require('three/examples/js/controls/OrbitControls.js')
+require('common/OrbitControls')(THREE)
 var controls = new THREE.OrbitControls(camera, renderer.domElement)
 
 function animate() {

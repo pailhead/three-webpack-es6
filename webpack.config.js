@@ -25,7 +25,7 @@ if (__DEV__) {
         output: {
             path: path.join(__dirname, 'build'),
             filename: '[name].bundle.js',
-            publicPath: '/'
+            publicPath: './'
         },
         module: {
             rules: [
