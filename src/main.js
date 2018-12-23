@@ -12,7 +12,6 @@ class VirtualGroup {
     constructor(node) {
         this._node = node
 
-        this._isVirtualGroup = true
         this._instanceCount = 0
 
         this._node.traverse(this._initMatrices)
@@ -21,27 +20,40 @@ class VirtualGroup {
     createInstance() {
         const _instance = new THREE.Mesh(dummyGeometry) //so we can call onBeforeRender
 
+        _instance.onWillUpdate = function() {
+            _instance.matrixWorldNeedsUpdate = true
+        }
+
+        _instance._isVirtualGroup = true
+
         this._node.traverse(o => {
             o.userData.virtualMatrices[_instance.uuid] = new THREE.Matrix4()
         })
 
         const _virtualScene = new THREE.Scene()
+        _virtualScene.name = `virtual_${_instance.uuid}`
+        _virtualScene._instance = _instance
 
         _virtualScene.autoUpdate = false
         // _instance.add(_virtualScene) //dont need because ill skip over?
 
         _virtualScene.children.push(this._node) //link manually
 
-        _instance.onBeforeRender = function(renderer, parentScene, mainCamera) {
+        _instance.onAfterRender = function(renderer, parentScene, mainCamera) {
+            // const realParent = this._node.parent
+            const ac = renderer.autoClear
+            renderer.autoClear = false
             // _virtualScene.add(this._node)
             renderer.render(_virtualScene, mainCamera)
             // _virtualScene.remove(this._node)
+            renderer.autoClear = ac
+            // if (realParent) realParent.add(this._node)
         }.bind(this)
 
         //do _node update before this
         _instance.updateVirtualMatrix = function() {
             this._node.traverse(o => {
-                o.userData.virtualMatrices[instance.uuid].multiplyMatrices(
+                o.userData.virtualMatrices[_instance.uuid].multiplyMatrices(
                     _instance.matrixWorld,
                     o.matrixWorld
                 )
@@ -61,15 +73,29 @@ class VirtualGroup {
     }
 
     _initMatrices(o) {
+        o.updateWorldMatrix = function() {
+            THREE.Object3D.prototype.updateWorldMatrix.call(o)
+            o.userData.ownMatrixWorld.copy(o.matrixWorld)
+        }
+
         o.userData.virtualMatrices = {}
         o.userData.ownMatrixWorld = new THREE.Matrix4()
+
+        o.updateWorldMatrix()
+
         o.onBeforeRender = (renderer, virtualScene) => {
-            if (o.userData.virtualMatrices[virtualScene.uuid])
+            if (virtualScene._instance)
                 o.matrixWorld.copy(
-                    o.userData.virtualMatrices[virtualScene.uuid]
+                    o.userData.virtualMatrices[virtualScene._instance.uuid]
                 )
+            else o.matrixWorld.copy(o.userData.ownMatrixWorld)
         }
-        // o.onAfterRender //i just need to read?
+        o.onAfterRender = (renderer, virtualScene) => {
+            if (!virtualScene._instance) return
+
+            // if (o.userData.virtualMatrices[virtualScene._instance.uuid])
+            o.matrixWorld.copy(o.userData.ownMatrixWorld)
+        }
     }
 }
 
@@ -80,11 +106,11 @@ const onResize = e => {
     camera.aspect = window.innerWidth / window.innerHeight
     camera.updateProjectionMatrix()
     renderer.setSize(window.innerWidth, window.innerHeight)
-    console.log(camera.aspect)
 }
 window.addEventListener('resize', onResize, false)
 
 const scene = new THREE.Scene()
+scene.name = 'MAIN_SCENE'
 const camera = new THREE.PerspectiveCamera()
 camera.position.set(10, 10, 10)
 camera.lookAt(scene.position)
@@ -115,7 +141,7 @@ for (let i = 0; i < 4; i++) {
     m.updateWorldMatrix()
 }
 
-scene.add(group)
+// scene.add(group)
 
 const virtual = new VirtualGroup(group)
 
@@ -142,8 +168,8 @@ for (let i = 0; i < SIZE; i++) {
         const d1 = Math.random() > 0.5 ? -1 : 1
         const f = r * 0.5 + 0.5
         const onWillUpdate = function(delta) {
-            this.rotation.x += f * d0 * delta
-            this.rotation.y += f * d1 * delta
+            this.rotation.x += f * d0 * delta * 0.1
+            this.rotation.y += f * d1 * delta * 0.1
             this.matrixWorldNeedsUpdate = true
         }.bind(node)
 
@@ -158,7 +184,7 @@ for (let i = 0; i < SIZE; i++) {
 
         const virtualInstance = virtual.createInstance()
 
-        scene.add(virtualInstance)
+        node.add(virtualInstance)
     }
 }
 
@@ -170,11 +196,16 @@ function animate() {
 
     const delta = clock.getDelta()
 
+    group.children[0].onWillUpdate(delta) // <---- have to call this since its not linked to the graph
+    group.children[0].updateWorldMatrix()
     //main update loop
     scene.traverse(o => {
         if (o.onWillUpdate) o.onWillUpdate(delta) //sets dirty inside
         if (o.matrixWorldNeedsUpdate) {
             o.updateWorldMatrix()
+            if (o._isVirtualGroup) {
+                o.updateVirtualMatrix(o)
+            }
             o.matrixWorldNeedsUpdate = false
         }
     })
@@ -182,6 +213,7 @@ function animate() {
 }
 
 function render() {
+    console.log(renderer.info.render.calls)
     renderer.render(scene, camera)
 }
 
